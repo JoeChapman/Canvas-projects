@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Creatify.Player</title>
+  <link rel="shortcut icon" type="image/png" href="../../jasmine/jasmine_favicon.png" />
+  <link rel="stylesheet" type="text/css" href="../../jasmine/jasmine.css" />
+  <script type="text/javascript" src="../../jasmine/jasmine.js"></script>
+  <script type="text/javascript" src="../../jasmine/jasmine-html.js"></script>
+  <script type="text/javascript" src="../../jQuery/jQuery-1.6.4-min.js"></script>
+  <script type="text/javascript" src="../../jasmine/jasmine-jquery.js"></script>
+  
+</head>
+
+<body>
+
+  <canvas id="world" width="740" height="640">
+    This browser can not run this game (canvas support missing).
+  </canvas>
+
+  <!-- Game required -->
+  <script type="text/javascript" src="../../scripts/CreatifyJS.Game/CreatifyJS.Game.js"></script>
+  <script type="text/javascript" src="../../scripts/CreatifyJS.Player/CreatifyJS.Player.js"></script>
+
+	<script type="text/javascript" src="CreatifyJS.Player.js"></script>
+	<script type="text/javascript">
+		jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+		jasmine.getEnv().execute();
+	</script>
+</body>
+</html>
