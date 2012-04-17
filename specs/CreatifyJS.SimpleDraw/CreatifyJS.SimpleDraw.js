@@ -24,5 +24,17 @@ describe('CreatifyJS.SimpleDraw', function () {
 			expect(draw.makeRectangle).toHaveBeenCalled();
 		});
 	});
-
+	describe('Calling addRectangle', function () {
+		beforeEach(function () {
+			options = {
+				color: 'rgb(0,20,20)',
+				dimensions: (100, 10, 55, 50)
+			};
+			spyOn(CreatifyJS.SimpleDraw.prototype, "makeRectangle");
+			draw.addRectangle(options);
+		});
+		it('Calls makeRectangle with options', function () {
+			expect(draw.makeRectangle).toHaveBeenCalledWith(options);
+		});
+	});
 });

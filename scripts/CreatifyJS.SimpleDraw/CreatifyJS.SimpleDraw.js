@@ -15,17 +15,21 @@ CreatifyJS.SimpleDraw.prototype.getCanvasContext = function (callback) {
 		try {
 			callback.call(this)
 		} catch(e) {
-			
+
 		}
 		
 	}
 };
 
-CreatifyJS.SimpleDraw.prototype.makeRectangle = function () {
+CreatifyJS.SimpleDraw.prototype.makeRectangle = function (options) {
 	if (typeof this.context.fillStyle !== 'undefined') {
-		this.context.fillStyle = this.color;  	
+		this.context.fillStyle = options.color || this.color;  	
 	}
 	if (typeof this.context.fillRect === 'function') {
-		this.context.fillRect(this.dimensions); 
+		this.context.fillRect(options.dimensions || this.dimensions); 
 	}
+};
+
+CreatifyJS.SimpleDraw.prototype.addRectangle = function (options) {
+	this.makeRectangle(options);
 };
