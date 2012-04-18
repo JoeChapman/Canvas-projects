@@ -11,6 +11,9 @@ CreatifyJS.Player.prototype.draw = function () {
 };
 
 CreatifyJS.Player.prototype.update = function (axes) {
-	this.x = this.x + axes.x;
-	this.y = this.y + axes.y;
+	console.log(axes)
+	if (axes) {
+		this.x = this.x + axes.x;
+		this.y = this.y + axes.y;	
+	}
 };
