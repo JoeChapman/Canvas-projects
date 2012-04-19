@@ -10,6 +10,8 @@
 		this.canvas_height = this.canvas.height;
 		this.paused = false;
 		this.player = new CreatifyJS.Player(this);
+		this.player.origX = this.player.x;
+		this.player.origY = this.player.y;
 		
 		this.eventDelegation(this.play())
 	};
@@ -34,23 +36,33 @@
 
 	CreatifyJS.Game.prototype.reset = function () {
 		this.pause();
-		this.player.x = 100;
-		this.player.y = 100;
+		this.player.x = this.player.origX;
+		this.player.y = this.player.origY;
 		this.drawAll();
 	};
 
 	CreatifyJS.Game.prototype.updateAll = function () {
-		//this.player.update({x:2, y:2});
+		//this.drawImage();
 	};
 
 	CreatifyJS.Game.prototype.drawAll = function () {
-		this.drawRectangle('#fff', 0, 0, this.canvas_width, this.canvas_height);
-		this.player.draw();
+		//this.drawRectangle('#fff', 0, 0, this.canvas_width, this.canvas_height);
+		this.player.draw();		
+		this.drawImage();
 	};
 
 	CreatifyJS.Game.prototype.drawRectangle = function (color, x, y, w, h) {
 		this.context.fillStyle = color;
 		this.context.fillRect(x, y, w, h);
+	};
+
+	CreatifyJS.Game.prototype.drawImage = function () {
+		var ctx = this.context,
+			img = new Image();
+		img.onload = function () {
+			ctx.drawImage(img, 0, 0);
+		};
+		img.src = "../../images/world-bg.jpg";		
 	};
 
 	CreatifyJS.Game.prototype.eventDelegation = function () {

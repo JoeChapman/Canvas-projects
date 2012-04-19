@@ -2,8 +2,8 @@ var CreatifyJS = CreatifyJS || {};
 
 CreatifyJS.Player = function (game) {
 	this.game = game;
-	this.x = 100;
-	this.y = 100;
+	this.x = 0;
+	this.y = 0;
 };
 
 CreatifyJS.Player.prototype.draw = function () {

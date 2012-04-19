@@ -44,11 +44,15 @@ describe("Game", function() {
 	});
 	describe("Drawing the game", function () {
 		spies.spyDrawRect = spyOn(CreatifyJS.Game.prototype, "drawRectangle");
+		spies.spyDrawImage = spyOn(CreatifyJS.Game.prototype, "drawImage");
 		spies.spyDrawPlayer = spyOn(CreatifyJS.Player.prototype, "draw");
 		var game = new CreatifyJS.Game(options);
 		waits(100);
+		it("Draws resets the world", function () {
+			//expect(spies.spyDrawRect).toHaveBeenCalled();
+		});
 		it("Draws the world", function () {
-			expect(spies.spyDrawRect).toHaveBeenCalled();
+			expect(spies.spyDrawImage).toHaveBeenCalled();
 		});
 		it("Draws the player", function () {
 			expect(spies.spyDrawPlayer).toHaveBeenCalled();
@@ -134,8 +138,8 @@ describe("Game", function() {
 			fireEvent(39, game.canvas);
 			// Press 'r'
 			fireEvent(82, game.canvas);
-			expect(game.player.x).toEqual(100);
-			expect(game.player.y).toEqual(100);
+			expect(game.player.x).toEqual(game.player.origX);
+			expect(game.player.y).toEqual(game.player.origY);
 		});
 		it("Pauses the game", function () {
 			fireEvent(82, game.canvas);
