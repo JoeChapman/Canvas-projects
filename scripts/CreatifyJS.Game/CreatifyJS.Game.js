@@ -10,7 +10,7 @@ CreatifyJS.Game = function (paused) {
 	this.canvas_height = this.canvas.height;
 	this.paused = false;
 	
-	this.eventDelgation();
+	this.eventDelegation();
 	this.play();
 	
 };
@@ -40,13 +40,13 @@ CreatifyJS.Game.prototype.reset = function () {
 	this.drawAll();
 };
 
-CreatifyJS.Game.prototype.eventDelgation = function () {
+CreatifyJS.Game.prototype.eventDelegation = function () {
 	var game = this;
 	// Bind all keydown events to a callback
 	document.addEventListener('keydown', function (e) {
 		var key = e.keyCode;
 		
-		if (game.paused && !CreatifyJS.Game.isPermittedKeyType('running', key)) {
+		if (game.paused && !CreatifyJS.Game.isPermittedKeyType('playing', key)) {
 			return;
 		}
 		// If this key is not one of our permitted keys, return!
@@ -62,10 +62,10 @@ CreatifyJS.Game.prototype.eventDelgation = function () {
 };
 
 CreatifyJS.Game.prototype.delegateKeyTypes = function (key) {
-	if (CreatifyJS.Game.isPermittedKeyType('running', key)) { 
+	if (CreatifyJS.Game.isPermittedKeyType('playing', key)) { 
 		this.delegateRunningControls(key);
 	}
-	if (CreatifyJS.Game.isPermittedKeyType('arrowKeys', key)) { 
+	if (CreatifyJS.Game.isPermittedKeyType('movement', key)) { 
 		this.player.update(this.getNewAxes(key));
 	}
 };
@@ -119,9 +119,9 @@ CreatifyJS.Game.prototype.getNewAxes = function (key) {
 CreatifyJS.Game.permittedKeys = [37, 38, 39, 40, 80, 82];
 
 // Put arrow keys here
-CreatifyJS.Game.arrowKeys = [37, 38, 39, 40];
+CreatifyJS.Game.movement = [37, 38, 39, 40];
 
-CreatifyJS.Game.running = [80, 82];
+CreatifyJS.Game.playing = [80, 82];
 
 // Have we put sanctions in place for this key??
 CreatifyJS.Game.isPermittedKeyType = function (arr, key) {

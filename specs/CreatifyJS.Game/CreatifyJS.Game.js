@@ -3,7 +3,7 @@ describe("Game", function() {
 	// A collection for resusing our spies
 	var spies = {};
 
-	// Event helpers
+	// HELPERS
 	var fireEvent = function (code, elem) {
 		var event = makeKeydownEvent();
 		event.keyCode = code;
@@ -14,57 +14,55 @@ describe("Game", function() {
     	event.initEvent('keydown', true, true);
     	return event;
 	};
-	var movePlayer = function (dist) {
 
-	};
-
+	// TESTS
 	describe("Creating a new game", function () {
-		it("Updates all", function () {
-			var spy = spyOn(CreatifyJS.Game.prototype, "updateAll");
+		it("Plays the game", function () {
+			spyOn(CreatifyJS.Game.prototype, "play");
 			var game = new CreatifyJS.Game();
-			setTimeout(function () {
-				expect(spy).toHaveBeenCalled();
-				game = null;
-			}, 0);
-		});
-		it("Draws all", function () {
-			var spy = spyOn(CreatifyJS.Game.prototype, "drawAll");
-			var game = new CreatifyJS.Game();
-			setTimeout(function () {
-				expect(spy).toHaveBeenCalled();
-				game = null;	
-			}, 0);
+			expect(CreatifyJS.Game.prototype.play).toHaveBeenCalled();
 		});
 	});
-	describe("Drawing all", function () {
-		spies.spyDraw = spyOn(CreatifyJS.Player.prototype, "draw");
-		spies.spyDrawRect = spyOn(CreatifyJS.Game.prototype, "drawRectangle");
+	describe("Playing the game", function () {
+		spies.spyDrawAll = spyOn(CreatifyJS.Game.prototype, "drawAll");
+		spies.spyUpdateAll = spyOn(CreatifyJS.Game.prototype, "updateAll");
 		var game = new CreatifyJS.Game();
-		game.drawAll();
+		waits(100);
+		it("Draws the game", function () {
+			expect(spies.spyDrawAll).toHaveBeenCalled();
+		});
+		it("Updates the game", function () {
+			expect(spies.spyUpdateAll).toHaveBeenCalled();
+		});
+	});
+	describe("Drawing the game", function () {
+		spies.spyDrawRect = spyOn(CreatifyJS.Game.prototype, "drawRectangle");
+		spies.spyDrawPlayer = spyOn(CreatifyJS.Player.prototype, "draw");
+		var game = new CreatifyJS.Game();
+		waits(100);
 		it("Draws the world", function () {
 			expect(spies.spyDrawRect).toHaveBeenCalled();
-			expect(spies.spyDrawRect.mostRecentCall.args[0]).toBe('#fff');
 		});
 		it("Draws the player", function () {
-			expect(spies.spyDraw).toHaveBeenCalled();
+			expect(spies.spyDrawPlayer).toHaveBeenCalled();
 		});
 	});
-	describe("Requesting key permission", function () {
+	describe("Pressing a key", function () {
 		var game = new CreatifyJS.Game();
-		describe("For a disallowedKey", function () {
+		describe("That's not a game key", function () {
 			var disallowedKey = 2;
-			it("Return false", function () {
+			it("Does not affect the game", function () {
 				expect(CreatifyJS.Game.isPermittedKeyType('permittedKeys', disallowedKey)).toEqual(false);
 			});
 		});
-		describe("For a permitted key", function () {
+		describe("That's a game key", function () {
 			var allowedKey = 39;
-			it("Return true", function () {
+			it("Updates the game", function () {
 				expect(CreatifyJS.Game.isPermittedKeyType('permittedKeys', allowedKey)).toEqual(true);
 			});
 		});
 	});
-	describe("Tapping the arrow keys", function () {
+	describe("Pressing the arrow keys", function () {
 		var game = new CreatifyJS.Game();
 		spies.update = spyOn(game.player, "update");
 		
